@@ -23,9 +23,17 @@ namespace MiniCarSalesAPI.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Bike bike)
+        public IActionResult Post([FromBody]Bike bike)
         {
-            _vehicleProvider.Add(bike);
+            var result = _vehicleProvider.Add(bike);
+            if (result != null)
+            {
+                return Created(Request.Scheme + "://" + Request.Host + "/api/vehicles/" + result.Id, result);
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
 
         // PUT api/values/5

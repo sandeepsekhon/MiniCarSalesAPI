@@ -3,7 +3,8 @@
 
   "dependencies": {
     "MiniCarsales.Data.Models": "1.0.0-*",
-    "NETStandard.Library": "1.6.0"
+    "NETStandard.Library": "1.6.0",
+    "NLog.Web.AspNetCore": "4.4.0"
   },
 
   "frameworks": {

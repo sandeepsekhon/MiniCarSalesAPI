@@ -17,7 +17,7 @@ namespace MiniCarSales.Data.InMemoryRepository
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        bool Add(T t);
+        T Add(T t);
 
         /// <summary>
         /// Find an object by Id

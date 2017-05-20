@@ -1,4 +1,5 @@
-﻿using MiniCarsales.Data.Models;
+﻿using Microsoft.Extensions.Logging;
+using MiniCarsales.Data.Models;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,12 @@ namespace MiniCarSales.Data.InMemoryRepository
     public class InMemoryData<T> : IInMemoryData<T> where T : Vehicle
     {
         //In memory storage of objects. The data type can be changed based upon the requirement.
-        public static List<T> dataList = new List<T>();
+        private static List<T> dataList = new List<T>();
+        private readonly ILogger<T> _logger;
+        public InMemoryData(ILogger<T> logger)
+        {
+            _logger = logger;
+        }
 
         /// <summary>
         /// Get all the elemets in thw storage.
@@ -27,14 +33,27 @@ namespace MiniCarSales.Data.InMemoryRepository
         /// </summary>
         /// <param name="t"></param>
         /// <returns>returns true if successful</returns>
-        public bool Add(T t)
+        public T Add(T t)
         {
+            if (t == null)
+            {
+                _logger.LogError("Null is not valid value for posting to Add method");
+                return null;
+            }
             if (t.Id == null || t.Id == Guid.Empty)
             {
                 t.Id = Guid.NewGuid();
             }
-            dataList.Add(t);
-            return true;
+            try
+            {
+                dataList.Add(t);
+                _logger.LogInformation($"New vehicle added with Id {t?.Id} and type {t?.Type}");
+            }
+            catch(Exception ex)
+            {
+                _logger.LogCritical($"Error while adding a vehicle with type {t?.Type}", ex, t);
+            }
+            return t;
         }
 
         /// <summary>
@@ -55,6 +74,11 @@ namespace MiniCarSales.Data.InMemoryRepository
         public bool Edit(Guid id, T t)
         {
             var index = dataList.FindIndex(d => d.Id == id);
+            if(index==0)
+            {
+                _logger.LogError($"No item with Id {id} found for edit");
+                return false;
+            }
             dataList[index] = t;
             return true;
         }

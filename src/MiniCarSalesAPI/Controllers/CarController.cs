@@ -24,9 +24,17 @@ namespace MiniCarSalesAPI.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Car car)
+        public IActionResult Post([FromBody]Car car)
         {
-            _vehicleProvider.Add(car);
+            var result = _vehicleProvider.Add(car);
+            if (result != null)
+            {
+                return Created(Request.Scheme + "://" + Request.Host + "/api/vehicles/" + result.Id, result);
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
 
         // PUT api/values/5
@@ -35,5 +43,6 @@ namespace MiniCarSalesAPI.Controllers
         {
             _vehicleProvider.Edit(id, car);
         }
+        
     }
 }
