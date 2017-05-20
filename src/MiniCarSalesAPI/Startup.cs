@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MiniCarsales.Data.Models;
+using MiniCarSales.Data.InMemoryRepository;
 
 namespace MiniCarSalesAPI
 {
@@ -29,6 +31,22 @@ namespace MiniCarSalesAPI
         {
             // Add framework services.
             services.AddMvc();
+
+            //Add support for Cors as Angular CLI app is running at different location.
+            //TODO: configure the domain from App settings.
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins", builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200", "*")
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+            services.AddTransient(typeof(Vehicle), typeof(Car));
+            services.AddTransient(typeof(Vehicle), typeof(Bike));
+            services.AddSingleton(typeof(IInMemoryData<>), typeof(InMemoryData<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
