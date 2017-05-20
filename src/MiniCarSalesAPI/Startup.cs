@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MiniCarsales.Data.Models;
 using MiniCarSales.Data.InMemoryRepository;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace MiniCarSalesAPI
 {
@@ -16,6 +18,7 @@ namespace MiniCarSalesAPI
     {
         public Startup(IHostingEnvironment env)
         {
+            env.ConfigureNLog("nlog.config");
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -52,10 +55,14 @@ namespace MiniCarSalesAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddNLog();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            //add NLog.Web
+            app.AddNLogWeb();
         }
     }
 }

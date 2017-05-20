@@ -15,7 +15,8 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-    "MiniCarSales.Data.InMemoryRepository": "1.0.0-*"
+    "MiniCarSales.Data.InMemoryRepository": "1.0.0-*",
+    "NLog.Web.AspNetCore": "4.4.0"
   },
 
   "tools": {
@@ -47,7 +48,8 @@
       "wwwroot",
       "**/*.cshtml",
       "appsettings.json",
-      "web.config"
+      "web.config",
+      "nlog.config"
     ]
   },
 
