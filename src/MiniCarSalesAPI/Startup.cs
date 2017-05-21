@@ -11,6 +11,7 @@ using MiniCarsales.Data.Models;
 using MiniCarSales.Data.InMemoryRepository;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using Newtonsoft.Json.Serialization;
 
 namespace MiniCarSalesAPI
 {
@@ -33,7 +34,11 @@ namespace MiniCarSalesAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options =>
+                    {
+                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    });
 
             //Add support for Cors as Angular CLI app is running at different location.
             //TODO: configure the domain from App settings.

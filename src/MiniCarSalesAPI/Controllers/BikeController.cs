@@ -25,6 +25,10 @@ namespace MiniCarSalesAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Bike bike)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(this.ModelState);
+            }
             var result = _vehicleProvider.Add(bike);
             if (result != null)
             {
@@ -38,9 +42,20 @@ namespace MiniCarSalesAPI.Controllers
 
         // PUT api/values/5
         [HttpPut("{id:guid}")]
-        public void Put(Guid id, [FromBody]Bike bike)
+        public IActionResult Put(Guid id, [FromBody]Bike bike)
         {
-            _vehicleProvider.Edit(id, bike);
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(this.ModelState);
+            }
+            if (_vehicleProvider.Edit(id, bike))
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
 
     }
