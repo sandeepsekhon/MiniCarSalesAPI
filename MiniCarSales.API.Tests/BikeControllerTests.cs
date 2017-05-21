@@ -19,15 +19,7 @@ namespace MiniCarSales.API.Tests
         {
             vehicleStorage = new Mock<IInMemoryData<Vehicle>>();
             logger = new Mock<ILogger<BikeController>>();
-            var bike = new Bike
-            {
-                Id = new Guid(id),
-                BikeType = "Road",
-                Engine = "Classic",
-                Type = "bike",
-                Model = "Highlander",
-                Make = "BMW"
-            };
+            var bike = GetBike();
             vehicleStorage.Setup(t => t.Add(It.IsAny<Bike>())).Returns(bike);
             vehicleStorage.Setup(t => t.Edit(new Guid(id), It.IsAny<Bike>())).Returns(true);
         }
@@ -36,15 +28,7 @@ namespace MiniCarSales.API.Tests
         public void Should_Post_Bike()
         {
             var controller = new BikeController(vehicleStorage.Object, logger.Object);
-            var bike = new Bike
-            {
-                Id = new Guid(id),
-                BikeType = "Road",
-                Engine = "Classic",
-                Type = "bike",
-                Model = "Highlander",
-                Make = "BMW"
-            };
+            var bike = GetBike();
             var result = controller.Post(bike);
             Assert.True(result.GetType() == typeof(CreatedResult), "POST Test failed");
         }
@@ -53,15 +37,7 @@ namespace MiniCarSales.API.Tests
         public void Should_PUT_Bike()
         {
             var controller = new BikeController(vehicleStorage.Object, logger.Object);
-            var bike = new Bike
-            {
-                Id = new Guid(id),
-                BikeType = "Road",
-                Engine = "Classic",
-                Type = "bike",
-                Model = "Highlander",
-                Make = "BMW"
-            };
+            var bike = GetBike();
             var result = controller.Put(new Guid(id), bike);
             Assert.True(result.GetType() == typeof(OkResult), "PUT Test failed for success case");
         }
@@ -70,18 +46,24 @@ namespace MiniCarSales.API.Tests
         public void Should__NOT_PUT_Bike()
         {
             var controller = new BikeController(vehicleStorage.Object, logger.Object);
-            var bike = new Bike
+            var bike = GetBike();
+            var result = controller.Put(new Guid(), bike);
+            Assert.False(result.GetType() == typeof(OkResult), "PUT Test failed for failure case");
+            Assert.True(result.GetType() == typeof(NotFoundResult), "PUT Test failed for failure case");
+        }
+
+        private Bike GetBike()
+        {
+            return new Bike
             {
                 Id = new Guid(id),
                 BikeType = "Road",
                 Engine = "Classic",
                 Type = "bike",
                 Model = "Highlander",
-                Make = "BMW"
+                Make = "BMW",
+                Wheels = 2
             };
-            var result = controller.Put(new Guid(), bike);
-            Assert.False(result.GetType() == typeof(OkResult), "PUT Test failed for failure case");
-            Assert.True(result.GetType() == typeof(NotFoundResult), "PUT Test failed for failure case");
         }
 
     }

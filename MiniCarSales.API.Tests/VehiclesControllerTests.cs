@@ -27,7 +27,8 @@ namespace MiniCarSales.API.Tests
                 Engine = "Pulsar",
                 Type = "car",
                 Model = "MY2014",
-                Make = "Nissan"
+                Make = "Nissan",
+                Wheels = 4
             };
             vehicleCollection.Add(vehicle);
             vehicleStorage.Setup(t => t.GetAll()).Returns(vehicleCollection);

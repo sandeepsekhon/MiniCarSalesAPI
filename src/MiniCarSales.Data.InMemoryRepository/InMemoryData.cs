@@ -13,8 +13,8 @@ namespace MiniCarSales.Data.InMemoryRepository
     {
         //In memory storage of objects. The data type can be changed based upon the requirement.
         private static List<T> dataList = new List<T>();
-        private readonly ILogger<T> _logger;
-        public InMemoryData(ILogger<T> logger)
+        private readonly ILogger<InMemoryData<T>> _logger;
+        public InMemoryData(ILogger<InMemoryData<T>> logger)
         {
             _logger = logger;
         }
@@ -74,7 +74,7 @@ namespace MiniCarSales.Data.InMemoryRepository
         public bool Edit(Guid id, T t)
         {
             var index = dataList.FindIndex(d => d.Id == id);
-            if(index==0)
+            if (index == -1)
             {
                 _logger.LogError($"No item with Id {id} found for edit");
                 return false;

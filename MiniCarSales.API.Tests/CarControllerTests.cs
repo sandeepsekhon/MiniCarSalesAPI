@@ -19,16 +19,7 @@ namespace MiniCarSales.API.Tests
         {
             vehicleStorage = new Mock<IInMemoryData<Vehicle>>();
             logger = new Mock<ILogger<CarController>>();
-            var car = new Car
-            {
-                Id = new Guid(id),
-                CarType = "Sedan",
-                Doors = 5,
-                Engine = "Pulsar",
-                Type = "car",
-                Model = "MY2014",
-                Make = "Nissan"
-            };
+            var car = GetCar();
             vehicleStorage.Setup(t => t.Add(It.IsAny<Car>())).Returns(car);
             vehicleStorage.Setup(t => t.Edit(new Guid(id), It.IsAny<Car>())).Returns(true);
         }
@@ -37,16 +28,7 @@ namespace MiniCarSales.API.Tests
         public void Should_Post_Car()
         {   
             var controller = new CarController(vehicleStorage.Object, logger.Object);
-            var car = new Car
-            {
-                Id = new Guid(id),
-                CarType = "Sedan",
-                Doors = 5,
-                Engine = "Pulsar",
-                Type = "car",
-                Model = "MY2014",
-                Make = "Nissan"
-            };
+            var car = GetCar();
             var result = controller.Post(car);
             Assert.True(result.GetType()==typeof(CreatedResult), "POST Test failed");
         }
@@ -55,16 +37,7 @@ namespace MiniCarSales.API.Tests
         public void Should_PUT_Car()
         {
             var controller = new CarController(vehicleStorage.Object, logger.Object);
-            var car = new Car
-            {
-                Id = new Guid(id),
-                CarType = "Sedan",
-                Doors = 5,
-                Engine = "Pulsar",
-                Type = "car",
-                Model = "MY2014",
-                Make = "Nissan"
-            };
+            var car = GetCar();
             var result = controller.Put(new Guid(id), car);
             Assert.True(result.GetType() == typeof(OkResult), "PUT Test failed for success case");
         }
@@ -73,7 +46,15 @@ namespace MiniCarSales.API.Tests
         public void Should__NOT_PUT_Car()
         {
             var controller = new CarController(vehicleStorage.Object, logger.Object);
-            var car = new Car
+            var car = GetCar();
+            var result = controller.Put(new Guid(), car);
+            Assert.False(result.GetType() == typeof(OkResult), "PUT Test failed for failure case");
+            Assert.True(result.GetType() == typeof(NotFoundResult), "PUT Test failed for failure case");
+        }
+
+        private Car GetCar()
+        {
+            return new Car
             {
                 Id = new Guid(id),
                 CarType = "Sedan",
@@ -81,11 +62,9 @@ namespace MiniCarSales.API.Tests
                 Engine = "Pulsar",
                 Type = "car",
                 Model = "MY2014",
-                Make = "Nissan"
+                Make = "Nissan",
+                Wheels = 4
             };
-            var result = controller.Put(new Guid(), car);
-            Assert.False(result.GetType() == typeof(OkResult), "PUT Test failed for failure case");
-            Assert.True(result.GetType() == typeof(NotFoundResult), "PUT Test failed for failure case");
         }
 
     }

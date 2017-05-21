@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniCarSales.Data.InMemoryR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniCarSales.API.Tests", "MiniCarSales.API.Tests\MiniCarSales.API.Tests.csproj", "{C22B0C0E-635E-4741-9E17-F8BC599B851C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniCarSales.Data.InMemoryRepository.Tests", "MiniCarSales.Data.InMemoryRepository.Tests\MiniCarSales.Data.InMemoryRepository.Tests.csproj", "{BA7EC9B0-AD41-460B-A5B7-A8760CF3AC45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{C22B0C0E-635E-4741-9E17-F8BC599B851C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C22B0C0E-635E-4741-9E17-F8BC599B851C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C22B0C0E-635E-4741-9E17-F8BC599B851C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA7EC9B0-AD41-460B-A5B7-A8760CF3AC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA7EC9B0-AD41-460B-A5B7-A8760CF3AC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA7EC9B0-AD41-460B-A5B7-A8760CF3AC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA7EC9B0-AD41-460B-A5B7-A8760CF3AC45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
