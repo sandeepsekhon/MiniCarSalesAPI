@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using MiniCarSales.Data.InMemoryRepository;
 using MiniCarsales.Data.Models;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,10 +17,12 @@ namespace MiniCarSalesAPI.Controllers
     public class CarController : Controller
     {
         private readonly IInMemoryData<Vehicle> _vehicleProvider;
+        private readonly ILogger<CarController> _logger;
 
-        public CarController(IInMemoryData<Vehicle> vehicleProvider)
+        public CarController(IInMemoryData<Vehicle> vehicleProvider, ILogger<CarController> logger)
         {
             _vehicleProvider = vehicleProvider;
+            _logger = logger;
         }
 
         // POST api/values
@@ -28,12 +31,13 @@ namespace MiniCarSalesAPI.Controllers
         {
             if(!this.ModelState.IsValid)
             {
+                _logger.LogError("Invalid data sent to the Post method", this.ModelState, car);
                 return BadRequest(this.ModelState);
             }
             var result = _vehicleProvider.Add(car);
             if (result != null)
             {
-                return Created(Request.Scheme + "://" + Request.Host + "/api/vehicles/" + result.Id, result);
+                return Created(Request?.Scheme + "://" + Request?.Host + "/api/vehicles/" + result?.Id, result);
             }
             else
             {
@@ -47,6 +51,7 @@ namespace MiniCarSalesAPI.Controllers
         {
             if (!this.ModelState.IsValid)
             {
+                _logger.LogError("Invalid data sent to the PUT method", this.ModelState, car);
                 return BadRequest(this.ModelState);
             }
             if (_vehicleProvider.Edit(id, car))
@@ -55,7 +60,7 @@ namespace MiniCarSalesAPI.Controllers
             }
             else
             {
-                return StatusCode(500);
+                return NotFound();
             }
         }
         

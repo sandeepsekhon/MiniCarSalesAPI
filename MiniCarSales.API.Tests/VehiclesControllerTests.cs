@@ -14,14 +14,14 @@ namespace MiniCarSales.API.Tests
     {
         private readonly Mock<IInMemoryData<Vehicle>> vehicleStorage;
         private readonly Mock<ILogger<VehiclesController>> logger;
-
+        private const string id = "BDA3E16C-209E-4DCD-BF38-378274C572F6";
         public VehiclesControllerTests()
         {
             vehicleStorage = new Mock<IInMemoryData<Vehicle>>();
             var vehicleCollection = new List<Vehicle>();
             var vehicle = new Car
             {
-                Id = new Guid("BDA3E16C-209E-4DCD-BF38-378274C572F6"),
+                Id = new Guid(id),
                 CarType = "Sedan",
                 Doors = 5,
                 Engine = "Pulsar",
@@ -31,7 +31,7 @@ namespace MiniCarSales.API.Tests
             };
             vehicleCollection.Add(vehicle);
             vehicleStorage.Setup(t => t.GetAll()).Returns(vehicleCollection);
-            vehicleStorage.Setup(t => t.Find(new Guid("BDA3E16C-209E-4DCD-BF38-378274C572F6"))).Returns(vehicle);
+            vehicleStorage.Setup(t => t.Find(new Guid(id))).Returns(vehicle);
             logger = new Mock<ILogger<VehiclesController>>();
         }
 
@@ -41,15 +41,23 @@ namespace MiniCarSales.API.Tests
             var controller = new VehiclesController(vehicleStorage.Object, logger.Object);
             var result = controller.Get();
             Assert.True(result.Count()==1, "Get All Test failed");
-            Assert.True();
+            Assert.True(result.FirstOrDefault().Id==new Guid(id), "Get test failed for the items returned");
         }
 
         [Fact]
         public void Should_Get_By_Id()
         {            
             var controller = new VehiclesController(vehicleStorage.Object, logger.Object);
-            var result = controller.Get(new Guid("BDA3E16C-209E-4DCD-BF38-378274C572F6"));
+            var result = controller.Get(new Guid(id));
             Assert.True(result!=null, "Get By Id Test failed");
+        }
+
+        [Fact]
+        public void Should_Get_By_Id_Fail()
+        {
+            var controller = new VehiclesController(vehicleStorage.Object, logger.Object);
+            var result = controller.Get(new Guid());
+            Assert.False(result != null, "Get By Id Test failed for fail case");
         }
     }
 }
