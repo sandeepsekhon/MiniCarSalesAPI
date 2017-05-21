@@ -1,20 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{80F42742-3AA4-4896-94CF-8C3928C76F47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{49FD6E23-CF6D-443F-A40C-A2E681EEB25A}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MiniCarSalesAPI", "src\MiniCarSalesAPI\MiniCarSalesAPI.xproj", "{19692514-5492-4378-8BE5-DE32CEBCDBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniCarSalesAPI", "src\MiniCarSalesAPI\MiniCarSalesAPI.csproj", "{19692514-5492-4378-8BE5-DE32CEBCDBC7}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MiniCarsales.Data.Models", "src\MiniCarsales.Data.Models\MiniCarsales.Data.Models.xproj", "{198C03D2-E953-492B-B5E4-7374806B7C19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniCarsales.Data.Models", "src\MiniCarsales.Data.Models\MiniCarsales.Data.Models.csproj", "{198C03D2-E953-492B-B5E4-7374806B7C19}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MiniCarSales.Data.InMemoryRepository", "src\MiniCarSales.Data.InMemoryRepository\MiniCarSales.Data.InMemoryRepository.xproj", "{B2D07F46-CEA6-4EB9-A0E5-4581A8364622}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniCarSales.Data.InMemoryRepository", "src\MiniCarSales.Data.InMemoryRepository\MiniCarSales.Data.InMemoryRepository.csproj", "{B2D07F46-CEA6-4EB9-A0E5-4581A8364622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniCarSales.API.Tests", "MiniCarSales.API.Tests\MiniCarSales.API.Tests.csproj", "{C22B0C0E-635E-4741-9E17-F8BC599B851C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +33,10 @@ Global
 		{B2D07F46-CEA6-4EB9-A0E5-4581A8364622}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2D07F46-CEA6-4EB9-A0E5-4581A8364622}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2D07F46-CEA6-4EB9-A0E5-4581A8364622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22B0C0E-635E-4741-9E17-F8BC599B851C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22B0C0E-635E-4741-9E17-F8BC599B851C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22B0C0E-635E-4741-9E17-F8BC599B851C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22B0C0E-635E-4741-9E17-F8BC599B851C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

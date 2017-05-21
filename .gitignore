@@ -2,3 +2,5 @@ src/MiniCarSalesAPI/obj/
 src/MiniCarSalesAPI/bin/
 src/MiniCarsales.Data.Models/obj/
 src/MiniCarSales.Data.InMemoryRepository/obj/
+Backup/
+UpgradeLog.htm
