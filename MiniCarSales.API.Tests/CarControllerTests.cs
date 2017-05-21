@@ -5,8 +5,6 @@ using MiniCarSales.Data.InMemoryRepository;
 using MiniCarSalesAPI.Controllers;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace MiniCarSales.API.Tests
@@ -32,6 +30,7 @@ namespace MiniCarSales.API.Tests
                 Make = "Nissan"
             };
             vehicleStorage.Setup(t => t.Add(It.IsAny<Car>())).Returns(car);
+            vehicleStorage.Setup(t => t.Edit(new Guid(id), It.IsAny<Car>())).Returns(true);
         }
 
         [Fact]
@@ -50,6 +49,43 @@ namespace MiniCarSales.API.Tests
             };
             var result = controller.Post(car);
             Assert.True(result.GetType()==typeof(CreatedResult), "POST Test failed");
+        }
+
+        [Fact]
+        public void Should_PUT_Car()
+        {
+            var controller = new CarController(vehicleStorage.Object, logger.Object);
+            var car = new Car
+            {
+                Id = new Guid(id),
+                CarType = "Sedan",
+                Doors = 5,
+                Engine = "Pulsar",
+                Type = "car",
+                Model = "MY2014",
+                Make = "Nissan"
+            };
+            var result = controller.Put(new Guid(id), car);
+            Assert.True(result.GetType() == typeof(OkResult), "PUT Test failed for success case");
+        }
+
+        [Fact]
+        public void Should__NOT_PUT_Car()
+        {
+            var controller = new CarController(vehicleStorage.Object, logger.Object);
+            var car = new Car
+            {
+                Id = new Guid(id),
+                CarType = "Sedan",
+                Doors = 5,
+                Engine = "Pulsar",
+                Type = "car",
+                Model = "MY2014",
+                Make = "Nissan"
+            };
+            var result = controller.Put(new Guid(), car);
+            Assert.False(result.GetType() == typeof(OkResult), "PUT Test failed for failure case");
+            Assert.True(result.GetType() == typeof(NotFoundResult), "PUT Test failed for failure case");
         }
 
     }

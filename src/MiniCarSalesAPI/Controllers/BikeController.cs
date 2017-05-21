@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
-using MiniCarSales.Data.InMemoryRepository;
-using MiniCarsales.Data.Models;
 using Microsoft.Extensions.Logging;
+using MiniCarsales.Data.Models;
+using MiniCarSales.Data.InMemoryRepository;
+using System;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,7 +33,7 @@ namespace MiniCarSalesAPI.Controllers
             var result = _vehicleProvider.Add(bike);
             if (result != null)
             {
-                return Created(Request.Scheme + "://" + Request.Host + "/api/vehicles/" + result.Id, result);
+                return Created(Request?.Scheme + "://" + Request?.Host + "/api/vehicles/" + result?.Id, result);
             }
             else
             {
