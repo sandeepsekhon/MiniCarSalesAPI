@@ -4,3 +4,4 @@ src/MiniCarsales.Data.Models/obj/
 src/MiniCarSales.Data.InMemoryRepository/obj/
 Backup/
 UpgradeLog.htm
+src/MiniCarSales.Data.InMemoryRepository/bin/
