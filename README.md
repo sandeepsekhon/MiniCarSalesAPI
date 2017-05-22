@@ -12,7 +12,7 @@
 
     dotnet restore
 
-3. Go to src\MiniCarSalesAPI by typing following command:
+3. Go to src\MiniCarSalesAPI and type following command:
 
     dotnet run
 
